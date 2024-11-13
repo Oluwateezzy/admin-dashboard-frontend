@@ -42,3 +42,10 @@ export interface PaginationQueryDTO {
   page: number;
   limit: number;
 }
+
+export interface UpdateUserDTO {
+  email?: string,
+  username?: string,
+  role?: string,
+  status?: string,
+}
