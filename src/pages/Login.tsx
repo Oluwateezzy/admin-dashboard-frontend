@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
+import { loginUser } from "@/service/auth/authService";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,24 +11,40 @@ const Login = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
-    // For demo purposes, accept any email/password combination
-    if (email && password) {
-      localStorage.setItem("isAuthenticated", "true");
-      toast({
-        title: "Login successful",
-        description: "Welcome back!",
-      });
-      navigate("/users");
-    } else {
-      toast({
-        title: "Login failed",
-        description: "Please enter both email and password.",
-        variant: "destructive",
-      });
-    }
-  };
+  const handleLogin = async (e: React.FormEvent) => {
+  e.preventDefault();
+  
+  if (!email || !password) {
+    toast({
+      title: "Login failed",
+      description: "Please enter both email and password.",
+      variant: "destructive",
+    });
+    return;
+  }
+
+  try {
+    const loginData = { email, password };
+    const response = await loginUser(loginData);
+
+    localStorage.setItem("isAuthenticated", "true");
+    localStorage.setItem("token", response.data.token);
+    localStorage.setItem("user", JSON.stringify(response.data.userInfo));
+
+    toast({
+      title: "Login successful",
+      description: `Welcome back, ${response.data.userInfo.username}!`,
+    });
+    navigate("/users");
+  } catch (error) {
+    toast({
+      title: "Login failed",
+      description: error.message,
+      variant: "destructive",
+    });
+  }
+};
+
 
   return (
     <div className="min-h-screen bg-background flex items-center justify-center p-4 animate-fade-in">

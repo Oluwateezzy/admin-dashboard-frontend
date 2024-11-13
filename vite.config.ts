@@ -9,6 +9,11 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
+  define: {
+    'process.env': {
+      NEXT_PUBLIC_API_BASE_URL: 'https://admin-dashboard-backend-15xx.onrender.com/api'
+    },
+  },
   plugins: [
     react(),
     mode === 'development' && componentTagger(),
