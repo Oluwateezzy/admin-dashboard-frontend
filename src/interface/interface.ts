@@ -32,3 +32,13 @@ export interface LoginResponse {
     }
   }
 }
+
+export interface FilterQueryDTO {
+  role?: string;
+  status?: string;
+}
+
+export interface PaginationQueryDTO {
+  page: number;
+  limit: number;
+}
