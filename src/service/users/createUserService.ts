@@ -4,7 +4,6 @@ import axiosInstance from './axiosInstance';
 
 export async function createUser(user: UserDTO): Promise<ResponseData> {
   try {
-    console.log(user)
     const response = await axiosInstance.post('/users', user);
     return response.data;
   } catch (error) {

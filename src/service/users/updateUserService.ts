@@ -6,7 +6,6 @@ export async function updateUser(
   data: UpdateUserDTO
 ): Promise<ResponseData> {
   try {
-    console.log(data)
     const response = await axiosInstance.patch(`/users/${id}`, data);
     return response.data;
   } catch (error) {
