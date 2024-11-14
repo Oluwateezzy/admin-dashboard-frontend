@@ -25,54 +25,47 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import type { User } from "@/pages/Index";
-
 const formSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
+  username: z.string().min(2, "Name must be at least 2 characters long"),
   email: z.string().email("Invalid email address"),
-  role: z.enum(["Admin", "User"]),
+  password: z.string().optional(),
+  role: z.enum(["ADMIN", "USER"]),
+  status: z.enum(["ACTIVE", "NOT_ACTIVE"]),
 });
-
 type FormData = z.infer<typeof formSchema>;
-
-interface UserDialogProps {
-  user: User | null;
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  onSubmit: (data: FormData) => void;
-}
-
 export const UserDialog = ({
   user,
   open,
   onOpenChange,
   onSubmit,
-}: UserDialogProps) => {
+}) => {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
+      username: "",
       email: "",
-      role: "User",
+      role: "USER",
+      status: "ACTIVE",
     },
   });
-
   useEffect(() => {
     if (user) {
       form.reset({
-        name: user.name,
+        username: user.username,
         email: user.email,
         role: user.role,
+        status: user.status || "ACTIVE",
       });
     } else {
       form.reset({
-        name: "",
+        username: "",
         email: "",
-        role: "User",
+        password: "",
+        role: "USER",
+        status: "ACTIVE",
       });
     }
   }, [user, form]);
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
@@ -86,7 +79,7 @@ export const UserDialog = ({
           >
             <FormField
               control={form.control}
-              name="name"
+              name="username"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Name</FormLabel>
@@ -114,6 +107,25 @@ export const UserDialog = ({
                 </FormItem>
               )}
             />
+            {!user && (
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Password</FormLabel>
+                    <FormControl>
+                      <Input
+                        type="password"
+                        placeholder="Enter a strong password"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
             <FormField
               control={form.control}
               name="role"
@@ -130,14 +142,40 @@ export const UserDialog = ({
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                      <SelectItem value="Admin">Admin</SelectItem>
-                      <SelectItem value="User">User</SelectItem>
+                      <SelectItem value="ADMIN">Admin</SelectItem>
+                      <SelectItem value="USER">User</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
                 </FormItem>
               )}
             />
+            {user && (
+              <FormField
+                control={form.control}
+                name="status"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Status</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                    >
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select a status" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="ACTIVE">Active</SelectItem>
+                        <SelectItem value="NOT_ACTIVE">Not Active</SelectItem>
+                      </SelectContent>
+                    </Select>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            )}
             <div className="flex justify-end gap-4">
               <Button
                 type="button"

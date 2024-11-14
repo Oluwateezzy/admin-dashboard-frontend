@@ -38,7 +38,7 @@ export const UserTable = ({ users, onEdit, onDelete }: UserTableProps) => {
         <TableBody>
           {users.map((user) => (
             <TableRow key={user.id} className="group animate-fade-in">
-              <TableCell className="font-medium">{user.name}</TableCell>
+              <TableCell className="font-medium">{user.username}</TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell>
                 <Badge

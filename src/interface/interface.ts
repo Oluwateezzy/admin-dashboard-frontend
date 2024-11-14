@@ -1,14 +1,23 @@
 export interface UserDTO {
-  name: string;
-  email: string;
-  password: string;
+  name?: string;
+  email?: string;
+  password?: string;
   role: string;
+  id?: string,
+  username?: string,
+  status?: string,
 }
 
 export interface ResponseData {
   status: number;
   message: string;
-  data?: unknown
+  data?: UserDTO
+}
+
+export interface ResponseArrData {
+  status: number;
+  message: string;
+  data?: UserDTO[]
 }
 
 export interface LoginDTO {
@@ -48,4 +57,5 @@ export interface UpdateUserDTO {
   username?: string,
   role?: string,
   status?: string,
+  password?: string
 }
