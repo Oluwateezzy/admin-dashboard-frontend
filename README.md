@@ -1,15 +1,19 @@
+Here’s the updated README file with the default admin login details added:
+
+---
+
 # Admin Dashboard - User and Role Management
 
-This project is a simple admin dashboard built with Next.js for user and role management. It includes basic features for managing users and assigning roles, with user authentication and permissions management. The app uses a combination of Next.js, CSS framework for styling, and basic functionality for managing users and roles.
+This project is a simple admin dashboard built with Next.js for user and role management. It includes basic features for managing users and assigning roles, with user authentication and permissions management. The app uses a combination of Next.js, a CSS framework for styling, and basic functionality for managing users and roles.
 
 ## Table of Contents
 
 - [Overview](#overview)
 - [Installation](#installation)
+- [Default Admin Login](#default-admin-login)
 - [Features](#features)
 - [Technologies](#technologies)
 - [Usage](#usage)
-
 
 ## Overview
 
@@ -39,6 +43,12 @@ npm run dev
 
 The app will be available at `http://localhost:8080`.
 
+## Default Admin Login
+
+To access the dashboard as an admin, use the following credentials:
+
+- **Email**: `admin@admin.com`  
+- **Password**: `12345678`
 
 ## Features
 
@@ -70,3 +80,5 @@ The app will be available at `http://localhost:8080`.
 
 4. **Delete User**:
    - Users can be deleted from the list.
+
+--- 
