@@ -62,7 +62,6 @@ To access the dashboard as an admin, use the following credentials:
 - **Next.js**: A React framework for building the app and server-side rendering.
 - **Tailwind CSS**: A utility-first CSS framework for styling.
 - **React**: JavaScript library for building UI components.
-- **API Routes**: Next.js API routes for handling user-related data.
 - **CSS**: Basic styling applied where needed.
 
 ## Usage
